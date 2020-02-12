@@ -1,3 +1,28 @@
-<!--pages/home/home.wxml-->
-<camera style="width:100%;height:300px" flash="off"></camera>
-
+<camera flash="off" style="width: 100%; height: {{wh}}px;" wx:if="{{isShowPic===false}}">
+  <cover-view class="icon_cara" device-position="{{position}}">
+  <!-- 切换摄像头 -->
+    <cover-image src="/images/icon/reverse.png" bindtap="reverseCamera"></cover-image>
+    <!-- 拍照 -->
+    <cover-image src="/images/icon/camera.png" bindtap="takePhoto"></cover-image>
+    <!-- 相册 -->
+    <cover-image src="/images/icon/album.png" bindtap="chooseImage"></cover-image>
+  </cover-view>
+</camera>
+<view wx:else class="dis_img">
+ <image src="{{src}}" style="width:100%;height:{{wh}}px" mode="aspectFill"></image>
+      <view class="getInfo" wx:if="{{isShowFace}}">
+        <view class="getInfo_box">
+          <text>年龄: {{faceInfo.age}}岁</text>
+          <text>性别: {{map.gender[faceInfo.gender.type]}}</text>
+        </view>
+        <view class="getInfo_box">
+          <text>颜值: {{faceInfo.beauty}}分</text>
+          <text>情绪: {{map.expression[faceInfo.expression.type]}}</text>
+        </view>
+        <view class="getInfo_box">
+          <text>眼镜: {{map.glasses[faceInfo.glasses.type]}}</text>
+          <text>表情: {{map.emotion[faceInfo.emotion.type]}}</text>
+        </view>
+      </view>
+  <button type="primary" class="reChoose" bindtap="reChoose">重选照片</button>
+</view>
